@@ -38,6 +38,41 @@ public class BookService {
 	private BookClassificationRepository bookClassificationRepository;
 	@Autowired
 	private BookPromoCodeRepository bookPromoCodeRepository;
+	
+	/**
+	 * This method used to get the discount on a selected book.
+	 * @param book
+	 * @return
+	 */
+	private double getDiscountOnBook(Book book) {
+		double discountedPrice = 0.0;
+		if (book != null) {
+			double discountPerBook = 0.0;
+			if (book.getType() != null) {
+				System.out.println(book.getType());
+
+				Optional<BookType> discountBookType = bookTypeRepository.findById(book.getType());
+				logger.debug("discountBookType:" + discountBookType);
+				if (discountBookType != null && discountBookType.isPresent()) {
+					discountPerBook += discountBookType.get().getDiscount();
+				}
+			}
+			if (book.getClassification() != null) {
+				logger.debug(book.getClassification());
+				logger.debug("book.getClassification():" + book.getClassification());
+				Optional<BookClassification> discountBookClassification = bookClassificationRepository
+						.findById(book.getClassification());
+				logger.debug("discountBookClassification:" + discountBookClassification);
+				if (discountBookClassification != null && discountBookClassification.isPresent()) {
+					discountPerBook += discountBookClassification.get().getDiscount();
+				}
+			}
+			discountedPrice = book.getPrice() * (1 - discountPerBook);
+			logger.info("Book [" + book.getId() + "] Actual Price [" + book.getPrice() + "] after discount ["
+					+ (discountPerBook * 100) + "] book cost is ===>" + discountedPrice);
+		}
+		return discountedPrice;
+	}
 
 	/**
 	 * This method used to find after checkout total cost of purchase.
@@ -55,33 +90,7 @@ public class BookService {
 		double total = 0.0;
 
 		for (Book book : books) {
-			double discountPerBook = 0.0;
-			if (book != null) {
-				if (book.getType() != null) {
-					System.out.println(book.getType());
-
-					Optional<BookType> discountBookType = bookTypeRepository.findById(book.getType());
-					logger.debug("discountBookType:" + discountBookType);
-					if (discountBookType != null && discountBookType.isPresent()) {
-						discountPerBook += discountBookType.get().getDiscount();
-					}
-				}
-				if (book.getClassification() != null) {
-					logger.debug(book.getClassification());
-					logger.debug("book.getClassification():" + book.getClassification());
-					Optional<BookClassification> discountBookClassification = bookClassificationRepository
-							.findById(book.getClassification());
-					logger.debug("discountBookClassification:" + discountBookClassification);
-					if (discountBookClassification != null && discountBookClassification.isPresent()) {
-						discountPerBook += discountBookClassification.get().getDiscount();
-					}
-				}
-				double discountedPrice = book.getPrice() * (1 - discountPerBook);
-				logger.info("Book [" + book.getId() + "] Actual Price [" + book.getPrice() + "] after discount ["
-						+ (discountPerBook * 100) + "] book cost is ===>" + discountedPrice);
-
-				total += discountedPrice;
-			}
+			total += getDiscountOnBook(book);
 		}
 
 		if (order.getPromoCode() != null) {
@@ -96,7 +105,6 @@ public class BookService {
 		}
 
 		return new TotalCost(total);
-
 	}
 
 	/**

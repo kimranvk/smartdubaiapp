@@ -28,4 +28,8 @@ public class BookClassification {
 		this.classification=classification;
 		this.discount=discount;				
 	}
+	@Override
+	public String toString() {
+		return "BookClassification [classification=" + classification + ", discount=" + discount + "]";
+	}
 }

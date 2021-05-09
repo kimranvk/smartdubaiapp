@@ -28,4 +28,8 @@ public class BookPromoCode {
 		this.promoCode=promoCode;
 		this.discount=discount;				
 	}
+	@Override
+	public String toString() {
+		return "BookPromoCode [promoCode=" + promoCode + ", discount=" + discount + "]";
+	}
 }

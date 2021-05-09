@@ -10,7 +10,7 @@ http://localhost:8080/v3/api-docs.yaml
 
 Run from terminal
 =================
-java -jar app-1.0.jar
+java -jar appl-1.0.jar
 
 Run from Docker
 ===============

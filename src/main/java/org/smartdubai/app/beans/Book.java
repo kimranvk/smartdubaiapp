@@ -164,6 +164,12 @@ public class Book {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Book [id=" + id + ", name=" + name + ", description=" + description + ", author=" + author + ", type="
+				+ type + ", classification=" + classification + ", price=" + price + ", isbn=" + isbn + "]";
+	}
 	
 
 	

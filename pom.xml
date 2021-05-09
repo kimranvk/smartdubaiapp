@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.smartdubai</groupId>
-	<artifactId>app</artifactId>
+	<artifactId>appl</artifactId>
 	<version>1.0</version>
 	<packaging>jar</packaging>
 
@@ -27,6 +27,19 @@
 	</properties>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-core</artifactId>
+			<version>1.3</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-library</artifactId>
+			<version>1.3</version>
+			<scope>test</scope>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter -->
 		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
@@ -69,6 +82,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
 	</dependencies>
 

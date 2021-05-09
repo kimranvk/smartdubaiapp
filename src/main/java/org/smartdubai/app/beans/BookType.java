@@ -29,4 +29,8 @@ public class BookType {
 		this.type=type;
 		this.discount=discount;				
 	}
+	@Override
+	public String toString() {
+		return "BookType [type=" + type + ", discount=" + discount + "]";
+	}
 }

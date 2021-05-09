@@ -14,4 +14,9 @@ public class TotalCost {
 	public TotalCost(double totalCost) {
 		this.totalCost = totalCost;
 	}
+
+	@Override
+	public String toString() {
+		return "TotalCost [totalCost=" + totalCost + "]";
+	}
 }
